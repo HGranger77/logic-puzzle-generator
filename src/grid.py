@@ -67,13 +67,13 @@ class GridController():
         if prev_value == Cell.CROSS_INHERITED and self.grid_inheritence_counts[position] > 0:
             if next_value == Cell.CROSS_INHERITED:
                 next_value = Cell.CROSS
-            elif next_value == Cell.EMPTY:
+            elif next_value == Cell.EMPTY or next_value == Cell.MAYBE:
                 next_value = Cell.CROSS_INHERITED
 
         elif prev_value == Cell.TICK:
             self._update_inheritance(position, -1)
 
-        elif prev_value == Cell.CROSS and self.grid_inheritence_counts[position] > 0:
+        elif (prev_value == Cell.CROSS or prev_value == Cell.MAYBE) and self.grid_inheritence_counts[position] > 0:
             next_value = Cell.CROSS_INHERITED
 
         self.grid_states[position] = next_value
