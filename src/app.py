@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-from grid import GridController
+from game import GameController
 from widgets import SpinboxWithMemory, HintLabelFrame
 
 CAT_ITEMS = ["Lemon", "Grape", "Apple", "Orange", "Pear"]
@@ -15,7 +15,7 @@ class LogicoApp(tk.Frame):
         self.parent.title("Logic Puzzle")
 
         self.top_frames = [tk.Frame]
-        self.game_controller = GridController()
+        self.game_controller = GameController()
 
         self._create_controls_widget()
         self._create_game_widget()
@@ -82,7 +82,7 @@ class LogicoApp(tk.Frame):
     def start_game(self):
         category_count=int(self.category_count_value.get())
         category_size=int(self.category_size_value.get())
-        self.game_controller.start_game(category_count, category_size)
+        self.game_controller.grid.start_game(category_count, category_size)
         self.create_grid_display(category_count, category_size)
         self.create_hint_display()
         self._show_frame(self.game_frame)
@@ -115,9 +115,9 @@ class LogicoApp(tk.Frame):
                         grid_cell_frame.grid(row=ni, column=nj)
                         button = tk.Button(grid_cell_frame, text=" ")
                         button.pack()
-                        self.game_controller.grid_buttons[i,j,ni,nj] = button
+                        self.game_controller.grid.grid_buttons[i,j,ni,nj] = button
                 frame.grid(row=i, column=j+1)
-        self.game_controller.bind_buttons()
+        self.game_controller.grid.bind_buttons()
 
         canvas_width = 40
         canvas_height = 50
